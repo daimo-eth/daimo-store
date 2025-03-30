@@ -3,7 +3,7 @@
 import { Order } from "@/types";
 import { DaimoPayButton } from "@daimo/pay";
 import { optimismUSDC, PaymentCompletedEvent } from "@daimo/pay-common";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { getAddress } from "viem";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -87,6 +87,13 @@ export function CheckoutForm({
   const appId = "pay-demo";
   const destCoin = optimismUSDC;
   const destAddr = "0xEEee8B1371f1664b7C2A8c111D6062b6576fA6f0";
+  const metadata = useMemo(
+    () => ({
+      orderJSON: JSON.stringify(order),
+      ...formData,
+    }),
+    [order, formData]
+  );
 
   return (
     <DaimoPayButton.Custom
@@ -97,10 +104,7 @@ export function CheckoutForm({
       toUnits={totalUSD.toFixed(2)}
       toAddress={destAddr}
       onPaymentCompleted={onPaymentCompleted}
-      metadata={{
-        orderJSON: JSON.stringify(order),
-        ...formData,
-      }}
+      metadata={metadata}
       closeOnSuccess
     >
       {({ show }) => (

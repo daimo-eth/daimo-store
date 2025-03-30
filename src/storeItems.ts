@@ -7,12 +7,18 @@ export const storeItems: StoreItem[] = [
     title: "Cream Cap",
     subtitle: "Real World Ethereum",
     priceUSD: 0.20,
-    image: {
+    heroImage: {
       src: "/cream-cap.jpg",
       alt: "Cream Real World Ethereum Cap",
       width: 1024,
       height: 1024,
     },
+    image: {
+      src: "/cream-cap.jpg",
+      alt: "Cream Real World Ethereum Cap",
+      width: 256,
+      height: 256,
+    }
   },
   {
     id: "HT-G2",
@@ -20,12 +26,18 @@ export const storeItems: StoreItem[] = [
     title: "Light Green Cap",
     subtitle: "Real World Ethereum",
     priceUSD: 0.20,
-    image: {
+    heroImage: {
       src: "/light-green-cap.png",
-      alt: "Light green Real World Ethereum Cap",
+      alt: "Light Green Real World Ethereum Cap",
       width: 1024,
       height: 1536,
     },
+    image: {
+      src: "/light-green-cap-small.png",
+      alt: "Light Green Real World Ethereum Cap",
+      width: 256,
+      height: 256,
+    }
   },
   {
     id: "HT-G3",
@@ -33,11 +45,17 @@ export const storeItems: StoreItem[] = [
     title: "Forest Cap",
     subtitle: "Daimo OG",
     priceUSD: 0.15,
-    image: {
+    heroImage: {
       src: "/forest-green-cap.webp",
-      alt: "Forest green Daimo Cap",
+      alt: "Forest Daimo Cap",
       width: 1024,
       height: 1024,
     },
+    image: {
+      src: "/forest-green-cap.webp",
+      alt: "Forest Daimo Cap",
+      width: 256,
+      height: 256,
+    }
   },
 ];

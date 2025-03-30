@@ -12,12 +12,15 @@ export interface StoreItem {
   title: string;
   subtitle: string;
   priceUSD: number;
-  image: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
+  heroImage: StoreImage;
+  image: StoreImage;
+}
+
+export interface StoreImage {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
 }
 
 export const zOrderItem = z.object({
