@@ -1,11 +1,16 @@
 import { z } from "zod";
 
+export interface StoreItem {
+  id: string
+  title: string
+  subtitle: string
+  priceUSD: number,
+  imageUrl: string
+}
+
 export const zOrderItem = z.object({
   id: z.string(),
-  title: z.string(),
-  subtitle: z.string(),
   quantity: z.number(),
-  priceUSD: z.number(),
 });
 
 export const zOrder = z.object({
