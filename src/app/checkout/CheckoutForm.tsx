@@ -1,126 +1,151 @@
-'use client'
+"use client";
 
-import { Button } from "@/src/shared/tailwind-catalyst/button"
-import { Field, FieldGroup, Fieldset, Label } from "@/src/shared/tailwind-catalyst/fieldset"
-import { Input } from "@/src/shared/tailwind-catalyst/input"
-import { Text } from "@/src/shared/tailwind-catalyst/text"
-import { useState } from "react"
-import { DaimoPayButton } from "@daimo/pay"
-import { optimismUSDC, PaymentCompletedEvent } from "@daimo/pay-common"
-import { getAddress } from "viem"
-import { isValidEmail } from "../../utils/validation"
-import { AddressInput } from "../build/address-input"
+import { DaimoPayButton } from "@daimo/pay";
+import { optimismUSDC, PaymentCompletedEvent } from "@daimo/pay-common";
+import { useState } from "react";
+import { getAddress } from "viem";
+
+type Order = {
+  items: Array<{
+    id: string;
+    title: string;
+    subtitle: string;
+    quantity: number;
+    priceUSD: number;
+  }>;
+};
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+  error?: string;
+}
+
+function Input({ label, error, className = "", ...props }: InputProps) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        {label}
+      </label>
+      <input
+        {...props}
+        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+          error ? "border-red-500" : ""
+        } ${className}`}
+      />
+      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+    </div>
+  );
+}
 
 export interface CheckoutFormData {
-  firstName: string
-  lastName: string
-  email: string
-  address: string
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
 }
 
 export function CheckoutForm({
   onPaymentCompleted,
-  themeColor,
-  amountUSD,
+  totalUSD,
+  order,
 }: {
-  onPaymentCompleted?: (event: PaymentCompletedEvent) => void
-  themeColor: string
-  amountUSD: number
+  onPaymentCompleted?: (event: PaymentCompletedEvent) => void;
+  totalUSD: number;
+  order: Order;
 }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     address: "",
-  })
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const [errors, setErrors] = useState({ email: false })
-  const hasErrors = Object.values(errors).some(Boolean)
+  const [errors, setErrors] = useState({ email: false });
+  const hasErrors = Object.values(errors).some(Boolean);
 
-  const { firstName, lastName, email, address } = formData
-  const hasMissing = [firstName, lastName, email, address].includes("")
-  const isFormValid = !hasErrors && !hasMissing
+  const { firstName, lastName, email, address } = formData;
+  const hasMissing = [firstName, lastName, email, address].includes("");
+  const isFormValid = !hasErrors && !hasMissing;
 
   const validate = () => {
     setErrors({
       email: formData.email !== "" && !isValidEmail(formData.email),
-    })
-  }
+    });
+  };
 
-  const appId = "daimopay-growsf"
-  const destCoin = optimismUSDC
-  const destAddr = "0x555d5b5213b5782ddf5314f17d112fa118899f80"
+  const appId = "pay-demo";
+  const destCoin = optimismUSDC;
+  const destAddr = "0xEEee8B1371f1664b7C2A8c111D6062b6576fA6f0";
 
   return (
-    <Fieldset>
-      <Text>Instant transfer from any coin, any chain.</Text>
-      <FieldGroup>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-4">
-          <Field>
-            <Label>First name</Label>
-            <Input
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleInputChange}
-              themeColor={themeColor}
-            />
-          </Field>
-          <Field>
-            <Label>Last name</Label>
-            <Input
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleInputChange}
-              themeColor={themeColor}
-            />
-          </Field>
-        </div>
-        <Field>
-          <Label>Email</Label>
+    <div className="space-y-6">
+      <p className="text-gray-600">
+        Checkout instantly from any coin, any chain, any app.
+      </p>
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Input
-            name="email"
-            value={formData.email}
+            label="First name"
+            name="firstName"
+            value={formData.firstName}
             onChange={handleInputChange}
-            onBlur={validate}
-            invalid={errors.email}
-            themeColor={themeColor}
           />
-        </Field>
-        <AddressInput
-          address={formData.address}
-          onChange={(address: string) =>
-            setFormData((formData) => ({ ...formData, address }))
-          }
+          <Input
+            label="Last name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <Input
+          label="Email"
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          onBlur={validate}
+          error={errors.email ? "invalid email address" : undefined}
         />
-        <Field>
-          <DaimoPayButton.Custom
-            intent="Checkout"
-            appId={appId}
-            toChain={destCoin.chainId}
-            toToken={getAddress(destCoin.token)}
-            toAddress={destAddr}
-            onPaymentCompleted={onPaymentCompleted}
-            metadata={formData}
-          >
-            {({ show }) => (
-              <Button
-                onClick={show}
-                disabled={!isFormValid}
-                color="blue"
-                className="w-full"
-                themeColor={themeColor}
-              >
-                Pay ${amountUSD}
-              </Button>
-            )}
-          </DaimoPayButton.Custom>
-        </Field>
-      </FieldGroup>
-    </Fieldset>
-  )
-} 
+        <Input
+          label="Address"
+          name="address"
+          value={formData.address}
+          onChange={handleInputChange}
+        />
+        <DaimoPayButton.Custom
+          intent="Checkout"
+          appId={appId}
+          toChain={destCoin.chainId}
+          toToken={getAddress(destCoin.token)}
+          toUnits={totalUSD.toFixed(2)}
+          toAddress={destAddr}
+          onPaymentCompleted={onPaymentCompleted}
+          metadata={{
+            orderJSON: JSON.stringify(order),
+            ...formData,
+          }}
+          closeOnSuccess
+        >
+          {({ show }) => (
+            <button
+              onClick={show}
+              disabled={!isFormValid}
+              className="w-full px-4 py-2 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500"
+            >
+              Pay ${totalUSD.toFixed(2)}
+            </button>
+          )}
+        </DaimoPayButton.Custom>
+      </div>
+    </div>
+  );
+}
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
