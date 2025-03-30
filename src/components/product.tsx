@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Color, Order, StoreItem } from "@/types";
 import { storeItems } from "@/storeItems";
+import { assertNotNull } from "@daimo/pay-common";
 
 const itemColorIcon = {
   [Color.Cream]: {
@@ -23,12 +24,12 @@ const itemColorIcon = {
   },
 } as const;
 
+const getStoreItem = (color: Color) =>
+  assertNotNull(storeItems.find((item) => item.color === color));
 const demoImages = {
-  [Color.LightGreen]: storeItems.find(
-    (item) => item.color === Color.LightGreen
-  )!.image,
-  [Color.Cream]: storeItems.find((item) => item.color === Color.Cream)!.image,
-  [Color.Forest]: storeItems.find((item) => item.color === Color.Forest)!.image,
+  [Color.LightGreen]: getStoreItem(Color.LightGreen).heroImage,
+  [Color.Cream]: getStoreItem(Color.Cream).heroImage,
+  [Color.Forest]: getStoreItem(Color.Forest).heroImage,
 } as const;
 
 const modelImages = {

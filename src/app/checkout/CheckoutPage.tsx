@@ -1,17 +1,25 @@
 "use client";
 
+import { storeItems } from "@/storeItems";
 import { Order } from "@/types";
 import { assertNotNull, PaymentCompletedEvent } from "@daimo/pay-common";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import ReactConfetti from "react-confetti";
 import { ItemImage } from "../item";
 import { CheckoutForm } from "./CheckoutForm";
-import { storeItems } from "@/storeItems";
 
 export default function CheckoutPage({ order }: { order: Order }) {
   const [paymentCompleted, setPaymentCompleted] =
     useState<PaymentCompletedEvent>();
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const handlePaymentCompleted = (payment: PaymentCompletedEvent) => {
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 5000);
+    setPaymentCompleted(payment);
+  };
 
   const rows = order.items.map((item) => ({
     item,
@@ -25,6 +33,15 @@ export default function CheckoutPage({ order }: { order: Order }) {
 
   return (
     <div className="relative min-h-screen">
+      {showConfetti && (
+        <ReactConfetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+          numberOfPieces={200}
+          gravity={0.3}
+        />
+      )}
       {/* Cloud Background - Single image is enough */}
       <div className="fixed inset-0 w-full h-full">
         <div className="relative h-full w-full">
@@ -97,7 +114,7 @@ export default function CheckoutPage({ order }: { order: Order }) {
               <CheckoutForm
                 totalUSD={totalUSD}
                 order={order}
-                onPaymentCompleted={setPaymentCompleted}
+                onPaymentCompleted={handlePaymentCompleted}
               />
             )}
           </div>
@@ -126,28 +143,24 @@ function CheckoutCompleted({ payment }: { payment: PaymentCompletedEvent }) {
           ></path>
         </svg>
       </div>
-      <h2 className="text-2xl font-serif text-[#2c5282] mb-4">
-        payment complete!
-      </h2>
-      <p className="text-[#2d3748] mb-6">
-        your magical cap is on its way to you
-      </p>
-      <div className="bg-white/20 p-4 rounded-xl text-left mb-6">
+      <h2 className="text-2xl font-serif text-[#2c5282] mb-4">Done</h2>
+      <p className="text-[#2d3748] mb-6">your magical cap is on its way</p>
+      <div className="flex space-x-4 justify-center gap-2">
         <Link
-          href={`https://optimism.etherscan.io/tx/${payment.txHash}`}
+          href={`https://optimistic.etherscan.io/tx/${payment.txHash}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-[#2c5282] hover:text-[#1a365d] underline font-medium"
+          className="bg-white/20 px-6 py-2 rounded-lg text-[#2c5282] hover:bg-white/30 transition-colors cursor-pointer"
         >
           view transaction
         </Link>
+        <Link
+          href="/"
+          className="bg-[#2c5282] text-white px-6 py-2 rounded-lg hover:bg-[#1a365d] transition-colors cursor-pointer"
+        >
+          return to store
+        </Link>
       </div>
-      <Link
-        href="/"
-        className="inline-block bg-[#2c5282] text-white px-6 py-2 rounded-lg hover:bg-[#1a365d] transition-colors"
-      >
-        return to store
-      </Link>
     </div>
   );
 }
