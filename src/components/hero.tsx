@@ -52,8 +52,8 @@ const Hero = () => {
               Buy a cap with Ethereum
             </h2>
             <p className="text-lg text-[#2d3748] max-w-2xl font-light">
-              Select one of our 3 unique caps design and buy it from any chains
-              any tokens.
+              Select one of our 3 unique caps design and buy it from any token on 
+              any chain.
             </p>
             <div className="flex gap-4">
               <button
