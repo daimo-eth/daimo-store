@@ -1,22 +1,8 @@
 "use client";
 
-import { z } from "zod";
+import { Order, zOrder } from "@/types";
 import { useState } from "react";
 import { CheckoutForm } from "./CheckoutForm";
-
-const zOrderItem = z.object({
-  id: z.string(),
-  title: z.string(),
-  subtitle: z.string(),
-  quantity: z.number(),
-  priceUSD: z.number(),
-});
-
-const zOrder = z.object({
-  items: z.array(zOrderItem),
-});
-
-type Order = z.infer<typeof zOrder>;
 
 export default function CheckoutPage({
   searchParams,
@@ -82,10 +68,7 @@ export default function CheckoutPage({
           <div className="mb-8">
             <h2 className="text-lg font-semibold mb-4">Order Details</h2>
             {order.items.map((item) => (
-              <div
-                key={item.id}
-                className="flex justify-between py-2"
-              >
+              <div key={item.id} className="flex justify-between py-2">
                 <div>
                   <div className="font-medium">{item.title}</div>
                   <div className="text-sm text-gray-600">{item.subtitle}</div>

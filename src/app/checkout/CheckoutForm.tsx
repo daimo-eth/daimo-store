@@ -1,19 +1,10 @@
 "use client";
 
+import { Order } from "@/types";
 import { DaimoPayButton } from "@daimo/pay";
 import { optimismUSDC, PaymentCompletedEvent } from "@daimo/pay-common";
 import { useState } from "react";
 import { getAddress } from "viem";
-
-type Order = {
-  items: Array<{
-    id: string;
-    title: string;
-    subtitle: string;
-    quantity: number;
-    priceUSD: number;
-  }>;
-};
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
