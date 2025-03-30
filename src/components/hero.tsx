@@ -1,7 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const Hero = () => {
+export default function Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images = [
@@ -52,8 +54,8 @@ const Hero = () => {
               Buy a cap with Ethereum
             </h2>
             <p className="text-lg text-[#2d3748] max-w-2xl font-light">
-              Select one of our 3 unique caps design and buy it from any token on 
-              any chain.
+              Select one of our 3 unique caps design and buy it from any token
+              on any chain.
             </p>
             <div className="flex gap-4">
               <button
@@ -110,5 +112,3 @@ const Hero = () => {
     </div>
   );
 };
-
-export default Hero;

@@ -24,7 +24,7 @@ export default function CheckoutPage({ order }: { order: Order }) {
 
   return (
     <div className="relative min-h-screen">
-      {/* Cloud Background - Single image is enough */} 
+      {/* Cloud Background - Single image is enough */}
       <div className="fixed inset-0 w-full h-full">
         <div className="relative h-full w-full">
           <Image
@@ -61,10 +61,7 @@ export default function CheckoutPage({ order }: { order: Order }) {
                   className="flex items-center gap-6 bg-white/20 p-4 rounded-xl"
                 >
                   <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
-                    <ItemImage 
-                      id={row.item.id}
-                      className="object-cover"
-                    />
+                    <ItemImage id={row.item.id} />
                   </div>
                   <div className="flex-grow">
                     <h3 className="text-[#2c5282] text-lg font-medium mb-1">
@@ -135,14 +132,14 @@ function CheckoutCompleted({ payment }: { payment: PaymentCompletedEvent }) {
         your magical cap is on its way to you
       </p>
       <div className="bg-white/20 p-4 rounded-xl text-left mb-6">
-        <a 
+        <Link
           href={`https://optimism.etherscan.io/tx/${payment.txHash}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-[#2c5282] hover:text-[#1a365d] underline font-medium"
         >
           view transaction
-        </a>
+        </Link>
       </div>
       <Link
         href="/"
