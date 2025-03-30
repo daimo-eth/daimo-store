@@ -5,6 +5,7 @@ import { DaimoPayButton } from "@daimo/pay";
 import { optimismUSDC, PaymentCompletedEvent } from "@daimo/pay-common";
 import { useMemo, useState } from "react";
 import { getAddress } from "viem";
+import Autocomplete from "react-google-autocomplete";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -22,6 +23,7 @@ function Input({ label, error, className = "", ...props }: InputProps) {
         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
           error ? "border-red-500" : ""
         } ${className}`}
+        autoComplete="off"
       />
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>
@@ -33,9 +35,6 @@ export interface CheckoutFormData {
   lastName: string;
   email: string;
   address: string;
-  city: string;
-  country: string;
-  postalCode: string;
 }
 
 export function CheckoutForm({
@@ -52,9 +51,6 @@ export function CheckoutForm({
     lastName: "",
     email: "",
     address: "",
-    city: "",
-    country: "",
-    postalCode: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,17 +61,8 @@ export function CheckoutForm({
   const [errors, setErrors] = useState({ email: false });
   const hasErrors = Object.values(errors).some(Boolean);
 
-  const { firstName, lastName, email, address, city, country, postalCode } =
-    formData;
-  const hasMissing = [
-    firstName,
-    lastName,
-    email,
-    address,
-    city,
-    country,
-    postalCode,
-  ].includes("");
+  const { firstName, lastName, email, address } = formData;
+  const hasMissing = [firstName, lastName, email, address].includes("");
   const isFormValid = !hasErrors && !hasMissing;
 
   const validate = () => {
@@ -142,30 +129,26 @@ export function CheckoutForm({
               onBlur={validate}
               error={errors.email ? "invalid email address" : undefined}
             />
-            <Input
-              label="Address"
-              name="address"
-              value={formData.address}
-              onChange={handleInputChange}
-            />
-            <Input
-              label="City"
-              name="city"
-              value={formData.city}
-              onChange={handleInputChange}
-            />
-            <Input
-              label="Country"
-              name="country"
-              value={formData.country}
-              onChange={handleInputChange}
-            />
-            <Input
-              label="Postal Code"
-              name="postalCode"
-              value={formData.postalCode}
-              onChange={handleInputChange}
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Address
+              </label>
+              <Autocomplete
+                apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                options={{
+                  types: ["address"],
+                  componentRestrictions: { country: "us" },
+                }}
+                onPlaceSelected={(place) => {
+                  if (place.formatted_address) {
+                    setFormData(prev => ({ ...prev, address: place.formatted_address }));
+                  }
+                }}
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your address"
+                data-1p-ignore
+              />
+            </div>
             <button
               type="submit"
               disabled={!isFormValid}

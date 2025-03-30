@@ -85,9 +85,12 @@ export default function CheckoutPage({ order }: { order: Order }) {
                     <h3 className="text-[#2c5282] text-lg font-medium mb-1">
                       {row.storeItem.title}
                     </h3>
-                    <p className="text-[#2d3748]">
-                      Quantity: {row.item.quantity}
-                    </p>
+                    {row.item.quantity > 1 && (
+                      <p className="text-[#2c5282]">
+                        Quantity: {row.item.quantity}
+                      </p>
+                    )}
+                     <p className="text-[#2c5282]">Shipping Included</p>
                   </div>
                   <div className="flex-shrink-0 text-right">
                     <p className="text-[#2c5282] text-lg font-medium">

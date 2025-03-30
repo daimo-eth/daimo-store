@@ -17,6 +17,7 @@
     "react": "^19.0.0",
     "react-confetti": "^6.4.0",
     "react-dom": "^19.0.0",
+    "react-google-autocomplete": "^2.7.4",
     "viem": "^2.24.2",
     "wagmi": "^2.14.15"
   },
