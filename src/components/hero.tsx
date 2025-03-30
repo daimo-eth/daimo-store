@@ -1,7 +1,26 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const Hero = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = [
+    '/hero-cap.jpg',
+    '/cap-design-2.jpg',
+    '/cap-design-3.jpg'
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="relative min-h-[80vh]">
       {/* Cloud Background */}
@@ -31,27 +50,44 @@ const Hero = () => {
                 href="/shop"
                 className="inline-flex items-center px-6 py-3 rounded-full bg-[#4299e1] text-white font-medium hover:bg-[#3182ce] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                Start Your Journey
-              </Link>
-              <Link
-                href="/collections"
-                className="inline-flex items-center px-6 py-3 rounded-full border-2 border-[#4299e1] text-[#4299e1] font-medium hover:bg-[#4299e1] hover:text-white transition-all transform hover:-translate-y-1"
-              >
-                View Collection
+                Buy now
               </Link>
             </div>
           </div>
 
-          {/* Right Column - Image */}
+          {/* Right Column - Image Carousel */}
           <div className="relative h-[500px] w-full">
             <div className="absolute -top-10 -left-10 w-full h-full bg-white/20 backdrop-blur-sm rounded-2xl transform rotate-3"></div>
-            <Image
-              src="/hero-cap.jpg"
-              alt="Featured cap collection"
-              fill
-              className="object-cover rounded-2xl shadow-xl transform -rotate-2 hover:rotate-0 transition-transform duration-300"
-              priority
-            />
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute w-full h-full transition-opacity duration-1000 ease-in-out
+                  ${currentImageIndex === index ? 'opacity-100' : 'opacity-0'}`}
+              >
+                <Image
+                  src={image}
+                  alt={`Cap design ${index + 1}`}
+                  fill
+                  className="object-cover rounded-2xl shadow-xl transform -rotate-2"
+                  priority={index === 0}
+                />
+              </div>
+            ))}
+
+            {/* Slide Indicators */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 
+                    ${currentImageIndex === index 
+                      ? 'bg-white w-4' 
+                      : 'bg-white/50'}`}
+                  onClick={() => setCurrentImageIndex(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
