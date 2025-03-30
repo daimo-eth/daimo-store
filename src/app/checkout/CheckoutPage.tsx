@@ -24,31 +24,21 @@ export default function CheckoutPage({ order }: { order: Order }) {
 
   return (
     <div className="relative min-h-screen">
-      {/* Cloud Background - Repeated */} 
-      <div className="absolute inset-0 w-full h-full">
+      {/* Cloud Background - Single image is enough */} 
+      <div className="fixed inset-0 w-full h-full">
         <div className="relative h-full w-full">
           <Image
             src="/anime-clouds.jpg"
             alt=""
             fill
             className="object-cover"
-            priority
-          />
-        </div>
-        <div className="relative h-full w-full">
-          <Image
-            src="/anime-clouds.jpg"
-            alt=""
-            fill
-            className="object-cover"
-            style={{ transform: "scaleY(-1)" }} // Flip the second image
             priority
           />
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8 relative">
-        <div className="max-w-3xl mx-auto">
+      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 relative">
+        <div className="max-w-3xl mx-auto pb-8">
           {/* Header */}
           <div className="text-center mb-12 bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
             <h1 className="text-4xl font-serif text-[#2c5282] mb-4">
