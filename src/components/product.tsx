@@ -5,8 +5,13 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { Radio, RadioGroup } from "@headlessui/react";
 import Link from "next/link";
 import Image from "next/image";
+import { Color, Order } from "@/types";
 
-type ColorName = "Light Green" | "Cream" | "Forest";
+const colorToId = {
+  [Color.LightGreen]: "HT-G1",
+  [Color.Forest]: "HT-G2",
+  [Color.Cream]: "HT-G3",
+};
 
 const product = {
   name: "ダイモのキャップ\nDaimo Cap",
@@ -34,19 +39,19 @@ const product = {
     },
   ],
   modelImages: {
-    "Light Green": {
+    [Color.LightGreen]: {
       src: "/maddox-light-green-cap.png",
       alt: "Model wearing a classic light green cap with subtle artistic elements.",
       width: 1024,
       height: 1536,
     },
-    Cream: {
+    [Color.Cream]: {
       src: "/maddox-cream-cap.png",
       alt: "Model wearing a classic cream cap with subtle artistic elements.",
       width: 1024,
       height: 1536,
     },
-    Forest: {
+    [Color.Forest]: {
       src: "/maddox-forest-green-cap.png",
       alt: "Model wearing a classic forest green cap with subtle artistic elements.",
       width: 1024,
@@ -54,13 +59,20 @@ const product = {
     },
   } as const,
   colors: [
-    { name: "Cream", class: "bg-amber-50", selectedClass: "ring-amber-400" },
     {
+      color: Color.Cream,
+      name: "Cream",
+      class: "bg-amber-50",
+      selectedClass: "ring-amber-400",
+    },
+    {
+      color: Color.LightGreen,
       name: "Light Green",
       class: "bg-[#75BE9B]",
       selectedClass: "ring-[#75BE9B]",
     },
     {
+      color: Color.Forest,
       name: "Forest",
       class: "bg-[#525d60]",
       selectedClass: "ring-[#525d60]",
@@ -81,7 +93,33 @@ function classNames(...classes: string[]) {
 }
 
 export default function Product() {
+  // Default to first color
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  const [order, setOrder] = useState<Order>({
+    items: [
+      {
+        id: colorToId[selectedColor.color],
+        quantity: 1,
+      },
+    ],
+  });
+
+  const handleColorChange = (color: {
+    color: Color;
+    name: string;
+    class: string;
+    selectedClass: string;
+  }) => {
+    setSelectedColor(color);
+    setOrder({
+      items: [
+        {
+          id: colorToId[color.color],
+          quantity: 1,
+        },
+      ],
+    });
+  };
 
   return (
     <div className={`bg-stone-50 text-stone-800 tracking-wide`}>
@@ -112,10 +150,10 @@ export default function Product() {
             />
           </div>
           <Image
-            alt={product.modelImages[selectedColor.name as ColorName].alt}
-            src={product.modelImages[selectedColor.name as ColorName].src}
-            width={product.modelImages[selectedColor.name as ColorName].width}
-            height={product.modelImages[selectedColor.name as ColorName].height}
+            alt={product.modelImages[selectedColor.color].alt}
+            src={product.modelImages[selectedColor.color].src}
+            width={product.modelImages[selectedColor.color].width}
+            height={product.modelImages[selectedColor.color].height}
             className="aspect-4/5 size-full object-cover rounded-lg shadow-md lg:aspect-auto transition-transform duration-300 hover:scale-[1.02]"
           />
         </div>
@@ -175,7 +213,7 @@ export default function Product() {
                 <fieldset aria-label="Choose a color" className="mt-4 mb-8">
                   <RadioGroup
                     value={selectedColor}
-                    onChange={setSelectedColor}
+                    onChange={handleColorChange}
                     className="flex items-center gap-x-4"
                   >
                     {product.colors.map((color) => (
@@ -209,7 +247,9 @@ export default function Product() {
               </div>
 
               <Link
-                href="/checkout"
+                href={`/checkout?order=${encodeURIComponent(
+                  JSON.stringify(order)
+                )}`}
                 className="flex w-full items-center justify-center 
     rounded-full bg-gradient-to-b from-blue-500/70 to-blue-700/70
     px-8 py-4 text-base font-medium 
