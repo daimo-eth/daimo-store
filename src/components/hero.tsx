@@ -24,8 +24,7 @@ const Hero = () => {
               <span className="block text-[#2d3748] italic">Buy a cap with Ethereum</span>
             </h1>
             <p className="text-lg text-[#2d3748] max-w-2xl font-light">
-              Join us above the clouds, where each cap is crafted with the same care 
-              as a masterpiece. Find your perfect companion for life's adventures.
+                Select one of our 3 unique caps design and buy it from any chains any tokens. 
             </p>
             <div className="flex gap-4">
               <Link 
