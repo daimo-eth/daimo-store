@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+  font-family: 'Caveat', cursive;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
