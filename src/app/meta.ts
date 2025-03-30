@@ -16,14 +16,14 @@ export const metaOpenGraph = {
     {
       rel: "icon",
       type: "image/png",
-      sizes: "32x32",
-      url: "/favicon.png",
+      sizes: "64x64",
+      url: "/favicon-64x64.png",
     },
     {
       rel: "icon",
       type: "image/png",
-      sizes: "16x16",
-      url: "/favicon-16x16.png",
+      sizes: "32x32",
+      url: "/favicon.png",
     },
     {
       rel: "apple-touch-icon",
