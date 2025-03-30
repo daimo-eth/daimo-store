@@ -5,8 +5,9 @@ import { assertNotNull, PaymentCompletedEvent } from "@daimo/pay-common";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ItemImage, storeItems } from "../item";
+import { ItemImage } from "../item";
 import { CheckoutForm } from "./CheckoutForm";
+import { storeItems } from "@/storeItems";
 
 export default function CheckoutPage({ order }: { order: Order }) {
   const [paymentCompleted, setPaymentCompleted] =

@@ -8,10 +8,16 @@ export enum Color {
 
 export interface StoreItem {
   id: string;
+  color: Color;
   title: string;
   subtitle: string;
   priceUSD: number;
-  imageUrl: string;
+  image: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
 }
 
 export const zOrderItem = z.object({

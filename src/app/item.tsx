@@ -1,31 +1,7 @@
 "use client";
 
-import { StoreItem } from "@/types";
+import { storeItems } from "@/storeItems";
 import Image from "next/image";
-
-export const storeItems: StoreItem[] = [
-  {
-    id: "HT-G1",
-    title: "Cream Cap",
-    subtitle: "Real World Ethereum",
-    priceUSD: 40,
-    imageUrl: "/cream-cap.jpg",
-  },
-  {
-    id: "HT-G2",
-    title: "Light Green Cap",
-    subtitle: "Real World Ethereum",
-    priceUSD: 40,
-    imageUrl: "/light-green-cap.png",
-  },
-  {
-    id: "HT-G3",
-    title: "Forest Cap",
-    subtitle: "Daimo OG",
-    priceUSD: 40,
-    imageUrl: "/forest-green-cap.webp",
-  },
-];
 
 interface ItemImageProps {
   id: string;
@@ -37,9 +13,10 @@ export function ItemImage({ id }: ItemImageProps) {
 
   return (
     <Image
-      src={item.imageUrl}
-      alt={item.title}
-      fill
+      src={item.image.src}
+      alt={item.image.alt}
+      width={item.image.width}
+      height={item.image.height}
       className="object-cover"
       priority
     />
