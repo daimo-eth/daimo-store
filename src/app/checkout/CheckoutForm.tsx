@@ -137,7 +137,7 @@ export function CheckoutForm({
                 apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
                 options={{
                   types: ["address"],
-                  componentRestrictions: { country: "us" },
+                  componentRestrictions: { country: ["us", "ca"] },
                 }}
                 onPlaceSelected={(place) => {
                   if (place.formatted_address) {
