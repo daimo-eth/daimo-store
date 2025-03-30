@@ -57,18 +57,16 @@ export default function Hero() {
               Select one of our 3 unique caps design and buy it from any token
               on any chain.
             </p>
-            <div className="flex gap-4">
-              <button
-                onClick={scrollToBottom}
-                className="flex py-3 px-6 items-center justify-center 
+            <button
+              onClick={scrollToBottom}
+              className="flex py-3 px-6 items-center justify-center 
     rounded-full bg-gradient-to-b from-blue-500/70 to-blue-700/70
     text-sm font-medium 
-    text-white
+    text-white cursor-pointer
     hover:from-blue-500/80 hover:to-blue-700/80"
-              >
-                Buy now
-              </button>
-            </div>
+            >
+              Buy now
+            </button>
           </div>
 
           {/* Right Column - Image Carousel */}
