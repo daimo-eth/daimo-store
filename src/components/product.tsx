@@ -138,7 +138,7 @@ export default function Product() {
             <h2 className="sr-only">Product information</h2>
             <div className="flex items-end">
               <p className="text-3xl tracking-tight text-stone-900 font-light">
-                ${selectedItem.priceUSD}
+                ${selectedItem.priceUSD.toFixed(2).replace(".00", "")}
               </p>
               <p className="ml-3 text-sm text-stone-500 mb-1">USD</p>
             </div>

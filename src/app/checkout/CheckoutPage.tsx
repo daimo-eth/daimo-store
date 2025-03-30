@@ -131,20 +131,22 @@ function CheckoutCompleted({ payment }: { payment: PaymentCompletedEvent }) {
   return (
     <div className="text-center py-8">
       <div className="mb-6">
-        <svg
-          className="w-16 h-16 text-green-500 mx-auto"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M5 13l4 4L19 7"
-          ></path>
-        </svg>
+        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+          <svg
+            className="w-6 h-6 text-green-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 13l4 4L19 7"
+            ></path>
+          </svg>
+        </div>
       </div>
       <h2 className="text-2xl font-serif text-[#2c5282] mb-4">Done</h2>
       <p className="text-[#2d3748] mb-6">your magical cap is on its way</p>

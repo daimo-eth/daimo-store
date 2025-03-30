@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased ${poppins.className}`}>
+      <body className={`antialiased overscroll-none ${poppins.className}`}>
         <Providers>{children}</Providers>
       </body>
     </html>
