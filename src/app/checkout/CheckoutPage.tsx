@@ -45,7 +45,7 @@ export default function CheckoutPage({ order }: { order: Order }) {
               Complete Your Journey
             </h1>
             <p className="text-lg text-[#2d3748]">
-              Your magical cap awaits its new home
+              Your Real World Ethereum cap awaits its new home
             </p>
           </div>
 
