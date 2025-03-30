@@ -8,9 +8,9 @@ import Image from "next/image";
 import { Color, Order } from "@/types";
 
 const colorToId = {
-  [Color.LightGreen]: "HT-G1",
-  [Color.Forest]: "HT-G2",
-  [Color.Cream]: "HT-G3",
+  [Color.Cream]: "HT-G1",
+  [Color.LightGreen]: "HT-G2",
+  [Color.Forest]: "HT-G3",
 };
 
 const product = {
