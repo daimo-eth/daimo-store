@@ -24,7 +24,7 @@ export default function CheckoutPage({ order }: { order: Order }) {
 
   return (
     <div className="relative min-h-screen">
-      {/* Cloud Background - Repeated */}
+      {/* Cloud Background - Repeated */} 
       <div className="absolute inset-0 w-full h-full">
         <div className="relative h-full w-full">
           <Image
@@ -68,24 +68,32 @@ export default function CheckoutPage({ order }: { order: Order }) {
               {rows.map((row) => (
                 <div
                   key={row.item.id}
-                  className="flex items-center space-x-4 bg-white/20 p-4 rounded-xl"
+                  className="flex items-center gap-6 bg-white/20 p-4 rounded-xl"
                 >
-                  <div className="relative h-20 w-20 flex-shrink-0">
-                    <ItemImage id={row.item.id} />
+                  <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+                    <ItemImage 
+                      id={row.item.id}
+                      className="object-cover"
+                    />
                   </div>
                   <div className="flex-grow">
-                    <h3 className="text-[#2c5282] font-medium">
+                    <h3 className="text-[#2c5282] text-lg font-medium mb-1">
                       {row.storeItem.title}
                     </h3>
                     <p className="text-[#2d3748]">
+                      Quantity: {row.item.quantity}
+                    </p>
+                  </div>
+                  <div className="flex-shrink-0 text-right">
+                    <p className="text-[#2c5282] text-lg font-medium">
                       ${row.storeItem.priceUSD.toFixed(2)}
                     </p>
                   </div>
                 </div>
               ))}
 
-              <div className="border-t border-[#4299e1]/20 pt-4 mt-4">
-                <div className="flex justify-between text-[#2c5282] font-serif">
+              <div className="border-t border-[#4299e1]/20 pt-4 mt-6">
+                <div className="flex justify-between items-center text-[#2c5282] font-serif text-xl">
                   <span>Total</span>
                   <span>${totalUSD.toFixed(2)}</span>
                 </div>

@@ -6,23 +6,23 @@ import Image from 'next/image'
 export const storeItems: StoreItem[] = [
   {
     id: 'HT-G1',
-    title: 'Green Cap',
+    title: 'Cream Cap',
     subtitle: 'Real World Ethereum',
-    priceUSD: 0.10,
+    priceUSD: 20,
     imageUrl: '/hero-cap.jpg'
   },
   {
     id: 'HT-G2',
-    title: 'Grey Cap',
+    title: 'Light Green Cap',
     subtitle: 'Real World Ethereum',
-    priceUSD: 0.10,
+    priceUSD: 20,
     imageUrl: '/cap-design-2.jpg'
   },
   {
     id: 'HT-G3',
-    title: 'Blue Cap',
-    subtitle: 'Real World Ethereum',
-    priceUSD: 0.15,
+    title: 'Forest Cap',
+    subtitle: 'Daimo OG',
+    priceUSD: 20,
     imageUrl: '/cap-design-3.jpg'
   }
 ]
@@ -37,17 +37,12 @@ export function ItemImage({ id, className = '' }: ItemImageProps) {
   if (!item) return null
 
   return (
-    <div className="relative h-[500px] w-full">
-      <div className="absolute -top-10 -left-10 w-full h-full bg-white/20 backdrop-blur-sm rounded-2xl transform rotate-3"></div>
-      <div className="absolute w-full h-full">
-        <Image
-          src={item.imageUrl}
-          alt={item.title}
-          fill
-          className={`object-cover rounded-2xl shadow-xl transform -rotate-2 ${className}`}
-          priority
-        />
-      </div>
-    </div>
+    <Image
+      src={item.imageUrl}
+      alt={item.title}
+      fill
+      className="object-cover"
+      priority
+    />
   )
 }

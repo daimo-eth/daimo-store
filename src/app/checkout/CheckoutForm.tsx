@@ -85,7 +85,7 @@ export function CheckoutForm({
       // Handle form submission
     }} className="space-y-6">
       <p className="text-gray-600">
-        Checkout instantly from any coin, any chain, any app.
+        Checkout instantly from any currency, any chain.
       </p>
       <div className="space-y-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
