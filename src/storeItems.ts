@@ -6,7 +6,7 @@ export const storeItems: StoreItem[] = [
     color: Color.Cream,
     title: "Cream Cap",
     subtitle: "Real World Ethereum",
-    priceUSD: 40,
+    priceUSD: 0.20,
     image: {
       src: "/cream-cap.jpg",
       alt: "Cream Real World Ethereum Cap",
@@ -19,7 +19,7 @@ export const storeItems: StoreItem[] = [
     color: Color.LightGreen,
     title: "Light Green Cap",
     subtitle: "Real World Ethereum",
-    priceUSD: 40,
+    priceUSD: 0.20,
     image: {
       src: "/light-green-cap.png",
       alt: "Light green Real World Ethereum Cap",
@@ -32,7 +32,7 @@ export const storeItems: StoreItem[] = [
     color: Color.Forest,
     title: "Forest Cap",
     subtitle: "Daimo OG",
-    priceUSD: 40,
+    priceUSD: 0.15,
     image: {
       src: "/forest-green-cap.webp",
       alt: "Forest green Daimo Cap",

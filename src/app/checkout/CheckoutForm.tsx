@@ -65,8 +65,17 @@ export function CheckoutForm({
   const [errors, setErrors] = useState({ email: false });
   const hasErrors = Object.values(errors).some(Boolean);
 
-  const { firstName, lastName, email, address, city, country, postalCode } = formData;
-  const hasMissing = [firstName, lastName, email, address, city, country, postalCode].includes("");
+  const { firstName, lastName, email, address, city, country, postalCode } =
+    formData;
+  const hasMissing = [
+    firstName,
+    lastName,
+    email,
+    address,
+    city,
+    country,
+    postalCode,
+  ].includes("");
   const isFormValid = !hasErrors && !hasMissing;
 
   const validate = () => {
@@ -80,87 +89,90 @@ export function CheckoutForm({
   const destAddr = "0xEEee8B1371f1664b7C2A8c111D6062b6576fA6f0";
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      // Handle form submission
-    }} className="space-y-6">
-      <p className="text-gray-600">
-        Checkout instantly from any currency, any chain.
-      </p>
-      <div className="space-y-4">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Input
-            label="First name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-          />
-          <Input
-            label="Last name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-          />
-        </div>
-        <Input
-          label="Email"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          onBlur={validate}
-          error={errors.email ? "invalid email address" : undefined}
-        />
-        <Input
-          label="Address"
-          name="address"
-          value={formData.address}
-          onChange={handleInputChange}
-        />
-        <Input
-          label="City"
-          name="city"
-          value={formData.city}
-          onChange={handleInputChange}
-        />
-        <Input
-          label="Country"
-          name="country"
-          value={formData.country}
-          onChange={handleInputChange}
-        />
-        <Input
-          label="Postal Code"
-          name="postalCode"
-          value={formData.postalCode}
-          onChange={handleInputChange}
-        />
-        <DaimoPayButton.Custom
-          intent="Checkout"
-          appId={appId}
-          toChain={destCoin.chainId}
-          toToken={getAddress(destCoin.token)}
-          toUnits={totalUSD.toFixed(2)}
-          toAddress={destAddr}
-          onPaymentCompleted={onPaymentCompleted}
-          metadata={{
-            orderJSON: JSON.stringify(order),
-            ...formData,
+    <DaimoPayButton.Custom
+      intent="Checkout"
+      appId={appId}
+      toChain={destCoin.chainId}
+      toToken={getAddress(destCoin.token)}
+      toUnits={totalUSD.toFixed(2)}
+      toAddress={destAddr}
+      onPaymentCompleted={onPaymentCompleted}
+      metadata={{
+        orderJSON: JSON.stringify(order),
+        ...formData,
+      }}
+      closeOnSuccess
+    >
+      {({ show }) => (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            show();
           }}
-          closeOnSuccess
+          className="space-y-6"
         >
-          {({ show }) => (
+          <p className="text-gray-600">
+            Checkout instantly from any currency, any chain.
+          </p>
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Input
+                label="First name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
+              />
+              <Input
+                label="Last name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange}
+              />
+            </div>
+            <Input
+              label="Email"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              onBlur={validate}
+              error={errors.email ? "invalid email address" : undefined}
+            />
+            <Input
+              label="Address"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="City"
+              name="city"
+              value={formData.city}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Country"
+              name="country"
+              value={formData.country}
+              onChange={handleInputChange}
+            />
+            <Input
+              label="Postal Code"
+              name="postalCode"
+              value={formData.postalCode}
+              onChange={handleInputChange}
+            />
             <button
-              onClick={show}
+              type="submit"
               disabled={!isFormValid}
               className="w-full px-4 py-2 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500"
             >
               Pay ${totalUSD.toFixed(2)}
             </button>
-          )}
-        </DaimoPayButton.Custom>
-      </div>
-    </form>
+          </div>
+        </form>
+      )}
+    </DaimoPayButton.Custom>
   );
 }
 
