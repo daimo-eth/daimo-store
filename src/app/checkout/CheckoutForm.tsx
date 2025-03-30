@@ -33,6 +33,9 @@ export interface CheckoutFormData {
   lastName: string;
   email: string;
   address: string;
+  city: string;
+  country: string;
+  postalCode: string;
 }
 
 export function CheckoutForm({
@@ -49,6 +52,9 @@ export function CheckoutForm({
     lastName: "",
     email: "",
     address: "",
+    city: "",
+    country: "",
+    postalCode: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,8 +65,8 @@ export function CheckoutForm({
   const [errors, setErrors] = useState({ email: false });
   const hasErrors = Object.values(errors).some(Boolean);
 
-  const { firstName, lastName, email, address } = formData;
-  const hasMissing = [firstName, lastName, email, address].includes("");
+  const { firstName, lastName, email, address, city, country, postalCode } = formData;
+  const hasMissing = [firstName, lastName, email, address, city, country, postalCode].includes("");
   const isFormValid = !hasErrors && !hasMissing;
 
   const validate = () => {
@@ -74,7 +80,10 @@ export function CheckoutForm({
   const destAddr = "0xEEee8B1371f1664b7C2A8c111D6062b6576fA6f0";
 
   return (
-    <div className="space-y-6">
+    <form onSubmit={(e) => {
+      e.preventDefault();
+      // Handle form submission
+    }} className="space-y-6">
       <p className="text-gray-600">
         Checkout instantly from any coin, any chain, any app.
       </p>
@@ -108,6 +117,24 @@ export function CheckoutForm({
           value={formData.address}
           onChange={handleInputChange}
         />
+        <Input
+          label="City"
+          name="city"
+          value={formData.city}
+          onChange={handleInputChange}
+        />
+        <Input
+          label="Country"
+          name="country"
+          value={formData.country}
+          onChange={handleInputChange}
+        />
+        <Input
+          label="Postal Code"
+          name="postalCode"
+          value={formData.postalCode}
+          onChange={handleInputChange}
+        />
         <DaimoPayButton.Custom
           intent="Checkout"
           appId={appId}
@@ -133,7 +160,7 @@ export function CheckoutForm({
           )}
         </DaimoPayButton.Custom>
       </div>
-    </div>
+    </form>
   );
 }
 
