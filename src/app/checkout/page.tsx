@@ -1,5 +1,11 @@
 import { zOrder } from "@/types";
+import { Metadata } from "next";
 import CheckoutPage from "./CheckoutPage";
+import { metaOpenGraph } from "../meta";
+
+export const generateMetadata = (): Metadata => {
+  return metaOpenGraph;
+};
 
 export default async function Page({
   searchParams,

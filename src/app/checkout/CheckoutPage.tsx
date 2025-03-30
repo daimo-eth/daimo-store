@@ -135,10 +135,14 @@ function CheckoutCompleted({ payment }: { payment: PaymentCompletedEvent }) {
         your magical cap is on its way to you
       </p>
       <div className="bg-white/20 p-4 rounded-xl text-left mb-6">
-        <p className="text-sm text-[#2d3748]">
-          transaction hash:{" "}
-          <span className="font-mono text-xs break-all">{payment.txHash}</span>
-        </p>
+        <a 
+          href={`https://optimism.etherscan.io/tx/${payment.txHash}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-[#2c5282] hover:text-[#1a365d] underline font-medium"
+        >
+          view transaction
+        </a>
       </div>
       <Link
         href="/"
