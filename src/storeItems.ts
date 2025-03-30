@@ -1,12 +1,14 @@
 import { Color, StoreItem } from "./types";
 
+const mult = process.env.NODE_ENV === 'production' ? 1 : 0.01;
+
 export const storeItems: StoreItem[] = [
   {
     id: "HT-G1",
     color: Color.Cream,
     title: "Cream Cap",
     subtitle: "Real World Ethereum",
-    priceUSD: 30,
+    priceUSD: 30 * mult,
     heroImage: {
       src: "/cream-cap.jpg",
       alt: "Cream Real World Ethereum Cap",
@@ -25,7 +27,7 @@ export const storeItems: StoreItem[] = [
     color: Color.LightGreen,
     title: "Light Green Cap",
     subtitle: "Real World Ethereum",
-    priceUSD: 35,
+    priceUSD: 35 * mult ,
     heroImage: {
       src: "/light-green-cap.png",
       alt: "Light Green Real World Ethereum Cap",
@@ -44,7 +46,7 @@ export const storeItems: StoreItem[] = [
     color: Color.Forest,
     title: "Forest Cap",
     subtitle: "Daimo OG",
-    priceUSD: 40,
+    priceUSD: 40 * mult,
     heroImage: {
       src: "/forest-green-cap.webp",
       alt: "Forest Daimo Cap",

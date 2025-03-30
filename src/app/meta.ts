@@ -17,7 +17,7 @@ export const metaOpenGraph = {
       rel: "icon",
       type: "image/png",
       sizes: "32x32",
-      url: "/favicon-32x32.png",
+      url: "/favicon.png",
     },
     {
       rel: "icon",
