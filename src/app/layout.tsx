@@ -60,7 +60,6 @@ export default function RootLayout({
         <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
         <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-        <link rel="manifest" href="/site.webmanifest" />
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:image" content={`${APP_URL}/og.png`} />
         <meta property="fc:frame:button:1" content="Get Your Cap @ Farcon" />
