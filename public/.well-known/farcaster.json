@@ -1,0 +1,17 @@
+{
+  "frame": {
+    "version": "1",
+    "name": "Daimo Store",
+    "iconUrl": "https://https://daimo-store.vercel.app/favicon.ico",
+    "homeUrl": "https://https://daimo-store.vercel.app/",
+    "imageUrl": "https://daimo-store.vercel.app/og.png",
+    "splashBackgroundColor": "#000000",
+    "splashImageUrl": "https://daimo-store.vercel.app/apple-touch-icon.png",
+    "buttonTitle": "Daimo Store @ Farcon",
+    "primaryCategory": "shopping",
+    "heroImageUrl": "https://daimo-store.vercel.app/og.png",
+    "ogImageUrl": "https://daimo-store.vercel.app/og.png",
+    "ogTitle": "Daimo Store",
+    "ogDescription": "Buy a cap with Digital Money"
+  }
+} 
