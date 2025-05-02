@@ -3,6 +3,7 @@
 import { DaimoPayProvider, getDefaultConfig } from '@daimo/pay'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiProvider, createConfig } from 'wagmi'
+import { FarcasterProvider } from '@/contexts/FarcasterContext'
 
 const config = createConfig(
   getDefaultConfig({
@@ -14,7 +15,6 @@ const config = createConfig(
 const queryClient = new QueryClient()
 
 const customTheme = {
-  "--ck-font-family": "Inter",
   "--ck-font-weight": "400",
   "--ck-border-radius": "20px",
   "--ck-overlay-background": "#00000008",
@@ -72,7 +72,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <DaimoPayProvider customTheme={customTheme}>{children}</DaimoPayProvider>
+        <DaimoPayProvider customTheme={customTheme}>
+          <FarcasterProvider>{children}</FarcasterProvider>
+        </DaimoPayProvider>
       </QueryClientProvider>
     </WagmiProvider>
   )

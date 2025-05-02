@@ -2,20 +2,39 @@
 
 import { storeItems } from "@/storeItems";
 import { Order } from "@/types";
-import { assertNotNull, PaymentCompletedEvent } from "@daimo/pay-common";
+import { assertNotNull } from "@daimo/pay-common";
+import { DaimoPayEvent } from "@daimo/pay";
+import { sdk } from "@farcaster/frame-sdk";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactConfetti from "react-confetti";
 import { ItemImage } from "../item";
 import { CheckoutForm } from "./CheckoutForm";
 
 export default function CheckoutPage({ order }: { order: Order }) {
-  const [paymentCompleted, setPaymentCompleted] =
-    useState<PaymentCompletedEvent>();
+  const [paymentCompleted, setPaymentCompleted] = useState<DaimoPayEvent>();
   const [showConfetti, setShowConfetti] = useState(false);
+  const [isFarcaster, setIsFarcaster] = useState(false);
+  const [username, setUsername] = useState<string>();
 
-  const handlePaymentCompleted = (payment: PaymentCompletedEvent) => {
+  useEffect(() => {
+    const checkFarcaster = async () => {
+      try {
+        const context = await sdk.context;
+        // If we can get the context and there's a user FID, we're in a Farcaster mini app
+        setIsFarcaster(!!context?.user?.fid);
+        setUsername(context?.user?.username);
+        await sdk.actions.ready();
+      } catch (e) {
+        console.error('Failed to initialize Farcaster:', e);
+        setIsFarcaster(false);
+      }
+    };
+    checkFarcaster();
+  }, []);
+
+  const handlePaymentCompleted = (payment: DaimoPayEvent) => {
     setShowConfetti(true);
     setTimeout(() => setShowConfetti(false), 5000);
     setPaymentCompleted(payment);
@@ -42,7 +61,7 @@ export default function CheckoutPage({ order }: { order: Order }) {
           gravity={0.3}
         />
       )}
-      {/* Cloud Background - Single image is enough */}
+      {/* Cloud Background */}
       <div className="fixed inset-0 w-full h-full">
         <div className="relative h-full w-full">
           <Image
@@ -59,12 +78,28 @@ export default function CheckoutPage({ order }: { order: Order }) {
         <div className="max-w-3xl mx-auto pb-8">
           {/* Header */}
           <div className="text-center mb-12 bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
-            <h1 className="text-4xl font-serif text-[#2c5282] mb-4">
-              Complete Your Journey
-            </h1>
-            <p className="text-lg text-[#2d3748]">
-              Your Real World Ethereum cap awaits its new home
-            </p>
+            {isFarcaster ? (
+              <>
+                <h1 className="text-3xl font-serif text-[#2c5282] mb-4">
+                  {username ? `Hey @${username}! ` : ''}Get Your Daimo Cap at Farcon!
+                </h1>
+                <p className="text-lg text-[#2d3748] mb-2">
+                  Be part of history with a limited edition Real World Ethereum cap
+                </p>
+                <p className="text-md text-[#2d3748] italic">
+                  Pick up your cap in person at Farcon from <button onClick={() => sdk.actions.openUrl("https://warpcast.com/gianluk.eth")} className="text-blue-500 hover:underline">@gianluk.eth</button> or <button onClick={() => sdk.actions.openUrl("https://warpcast.com/dcposch.eth")} className="text-blue-500 hover:underline">@dcposch.eth</button>
+                </p>
+              </>
+            ) : (
+              <>
+                <h1 className="text-4xl font-serif text-[#2c5282] mb-4">
+                  Complete Your Journey
+                </h1>
+                <p className="text-lg text-[#2d3748]">
+                  Your Real World Ethereum cap awaits its new home
+                </p>
+              </>
+            )}
           </div>
 
           {/* Cart Summary */}
@@ -76,12 +111,12 @@ export default function CheckoutPage({ order }: { order: Order }) {
               {rows.map((row) => (
                 <div
                   key={row.item.id}
-                  className="flex items-center gap-6 bg-white/20 p-4 rounded-xl"
+                  className="flex flex-col sm:flex-row items-center gap-4 bg-white/20 p-4 rounded-xl"
                 >
                   <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                     <ItemImage id={row.item.id} />
                   </div>
-                  <div className="flex-grow">
+                  <div className="flex-grow text-center sm:text-left pt-2 sm:pt-0">
                     <h3 className="text-[#2c5282] text-lg font-medium mb-1">
                       {row.storeItem.title}
                     </h3>
@@ -90,9 +125,11 @@ export default function CheckoutPage({ order }: { order: Order }) {
                         Quantity: {row.item.quantity}
                       </p>
                     )}
-                     <p className="text-[#2c5282]">Shipping Included</p>
+                    <p className="text-[#2c5282]">
+                      {isFarcaster ? "Pickup at Farcon" : "Shipping Included"}
+                    </p>
                   </div>
-                  <div className="flex-shrink-0 text-right">
+                  <div className="flex-shrink-0 w-full sm:w-auto text-center sm:text-right sm:mt-0 pt-2 sm:pt-0">
                     <p className="text-[#2c5282] text-lg font-medium">
                       ${row.storeItem.priceUSD.toFixed(2)}
                     </p>
@@ -112,7 +149,11 @@ export default function CheckoutPage({ order }: { order: Order }) {
           {/* Checkout Form Container */}
           <div className="bg-white/30 backdrop-blur-md p-8 rounded-2xl shadow-xl">
             {paymentCompleted ? (
-              <CheckoutCompleted payment={paymentCompleted} />
+              <CheckoutCompleted 
+                payment={paymentCompleted} 
+                isFarcaster={isFarcaster} 
+                username={username}
+              />
             ) : (
               <CheckoutForm
                 totalUSD={totalUSD}
@@ -127,7 +168,15 @@ export default function CheckoutPage({ order }: { order: Order }) {
   );
 }
 
-function CheckoutCompleted({ payment }: { payment: PaymentCompletedEvent }) {
+function CheckoutCompleted({ 
+  payment, 
+  isFarcaster, 
+  username 
+}: { 
+  payment: DaimoPayEvent; 
+  isFarcaster: boolean;
+  username?: string;
+}) {
   return (
     <div className="text-center py-8">
       <div className="mb-6">
@@ -148,8 +197,21 @@ function CheckoutCompleted({ payment }: { payment: PaymentCompletedEvent }) {
           </svg>
         </div>
       </div>
-      <h2 className="text-2xl font-serif text-[#2c5282] mb-4">Done</h2>
-      <p className="text-[#2d3748] mb-6">your magical cap is on its way</p>
+      <h2 className="text-2xl font-serif text-[#2c5282] mb-4">
+        {isFarcaster ? `See you at Farcon${username ? `, @${username}` : ''} 🎉` : "Done"}
+      </h2>
+      {isFarcaster ? (
+        <>
+          <p className="text-[#2d3748] mb-2">
+            Your limited edition Daimo cap is reserved!
+          </p>
+          <p className="text-[#2d3748] mb-6">
+            Find <button onClick={() => sdk.actions.openUrl("https://warpcast.com/gianluk.eth")} className="text-blue-500 hover:underline">@gianluk.eth</button> or <button onClick={() => sdk.actions.openUrl("https://warpcast.com/dcposch.eth")} className="text-blue-500 hover:underline">@dcposch.eth</button> at Farcon to pick up your cap
+          </p>
+        </>
+      ) : (
+        <p className="text-[#2d3748] mb-6">your magical cap is on its way</p>
+      )}
       <div className="flex space-x-4 justify-center gap-2">
         <Link
           href={`https://optimistic.etherscan.io/tx/${payment.txHash}`}
@@ -159,12 +221,12 @@ function CheckoutCompleted({ payment }: { payment: PaymentCompletedEvent }) {
         >
           view transaction
         </Link>
-        <Link
-          href="/"
-          className="bg-[#2c5282] text-white px-6 py-2 rounded-lg hover:bg-[#1a365d] transition-colors cursor-pointer"
-        >
-          return to store
-        </Link>
+          <Link
+            href="/"
+            className="bg-[#2c5282] text-white px-6 py-2 rounded-lg hover:bg-[#1a365d] transition-colors cursor-pointer"
+          >
+            return to store
+          </Link>
       </div>
     </div>
   );
