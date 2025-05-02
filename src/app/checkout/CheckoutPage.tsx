@@ -3,7 +3,7 @@
 import { storeItems } from "@/storeItems";
 import { Order } from "@/types";
 import { assertNotNull } from "@daimo/pay-common";
-import { DaimoPayEvent } from "@daimo/pay";
+import { DaimoPayEvent, DaimoPayCompletedEvent } from "@daimo/pay";
 import { sdk } from "@farcaster/frame-sdk";
 import Image from "next/image";
 import Link from "next/link";
@@ -213,20 +213,24 @@ function CheckoutCompleted({
         <p className="text-[#2d3748] mb-6">your magical cap is on its way</p>
       )}
       <div className="flex space-x-4 justify-center gap-2">
-        <Link
-          href={`https://optimistic.etherscan.io/tx/${payment.txHash}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-white/20 px-6 py-2 rounded-lg text-[#2c5282] hover:bg-white/30 transition-colors cursor-pointer"
-        >
-          view transaction
-        </Link>
+        {payment.type === "payment_completed" && (
+          <Link
+            href={`https://optimistic.etherscan.io/tx/${(payment as DaimoPayCompletedEvent).txHash}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white/20 px-6 py-2 rounded-lg text-[#2c5282] hover:bg-white/30 transition-colors cursor-pointer"
+          >
+            view transaction
+          </Link>
+        )}
+        {!isFarcaster && (
           <Link
             href="/"
             className="bg-[#2c5282] text-white px-6 py-2 rounded-lg hover:bg-[#1a365d] transition-colors cursor-pointer"
           >
             return to store
           </Link>
+        )}
       </div>
     </div>
   );
