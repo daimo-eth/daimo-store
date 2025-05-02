@@ -2,8 +2,8 @@
   "frame": {
     "version": "1",
     "name": "Daimo Store",
-    "iconUrl": "https://https://daimo-store.vercel.app/favicon.ico",
-    "homeUrl": "https://https://daimo-store.vercel.app/",
+    "iconUrl": "https://daimo-store.vercel.app/apple-touch-icon.png",
+    "homeUrl": "https://daimo-store.vercel.app/",
     "imageUrl": "https://daimo-store.vercel.app/og.png",
     "splashBackgroundColor": "#000000",
     "splashImageUrl": "https://daimo-store.vercel.app/apple-touch-icon.png",
