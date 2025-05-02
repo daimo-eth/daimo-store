@@ -9,13 +9,12 @@
     "name": "Daimo Store",
     "iconUrl": "https://daimo-store.vercel.app/apple-touch-icon.png",
     "homeUrl": "https://daimo-store.vercel.app/",
-    "imageUrl": "https://daimo-store.vercel.app/og.png",
+    "imageUrl": "https://daimo-store.vercel.app/og-frame.png",
     "splashBackgroundColor": "#000000",
     "splashImageUrl": "https://daimo-store.vercel.app/apple-touch-icon.png",
     "buttonTitle": "Get Your Cap @ Farcon",
     "primaryCategory": "shopping",
-    "heroImageUrl": "https://daimo-store.vercel.app/og.png",
-    "ogImageUrl": "https://daimo-store.vercel.app/og.png",
+    "heroImageUrl": "https://daimo-store.vercel.app/og-frame.png",
     "ogTitle": "Daimo Store",
     "ogDescription": "Buy a cap with Digital Money"
   }

@@ -61,14 +61,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content={`${APP_URL}/og.png`} />
+        <meta property="fc:frame:image" content={`${APP_URL}/og-frame.png`} />
         <meta property="fc:frame:button:1" content="Get Your Cap @ Farcon" />
         <meta property="fc:frame:post_url" content={`${APP_URL}/api/frame`} />
         <meta property="fc:frame:embed" content="true" />
         <meta property="fc:frame:embed:url" content={APP_URL} />
         <meta property="fc:frame:embed:allowed_hosts" content="daimo-store.vercel.app" />
         <meta property="fc:frame:embed:aspect_ratio" content="1.91:1" />
-        <meta property="og:image" content={`${APP_URL}/og.png`} />
+        <meta property="og:image" content={`${APP_URL}/og-frame.png`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:title" content="Daimo Store" />
