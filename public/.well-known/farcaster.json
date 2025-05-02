@@ -1,4 +1,9 @@
 {
+  "accountAssociation": {
+    "header": "eyJmaWQiOjkzMzg0NCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDA2MjhmOURCODJGNTc5MDgzOTc3NzgyMGRDNkQ0MzIwMDA4ZDBlRTkifQ",
+    "payload": "eyJkb21haW4iOiJkYWltby1zdG9yZS52ZXJjZWwuYXBwIn0",
+    "signature": "MHgwNWMwYjExMmNhNjliOGIzNzllYzlmN2JhYWQyNmM1MGUyYjZjMzE2M2E5YTY2NTJjODNhZjMzY2I0MDU2ODA5MDAzZTIyYzQ0ZDJkMzdjYmY5NzdjOGU2OGJmZmJkZDM2YjBjYTY5NTAwNDYzM2NhYWU5YWEwZmZjMDcwY2YwZTFj"
+  },
   "frame": {
     "version": "1",
     "name": "Daimo Store",
