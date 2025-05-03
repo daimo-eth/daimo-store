@@ -212,7 +212,7 @@ function CheckoutCompleted({
       ) : (
         <p className="text-[#2d3748] mb-6">your magical cap is on its way</p>
       )}
-      <div className="flex space-x-4 justify-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:mb-2 space-y-2 sm:space-y-0 sm:space-x-4 items-center">
         {payment.type === "payment_completed" && (
           <Link
             href={`https://optimistic.etherscan.io/tx/${(payment as DaimoPayCompletedEvent).txHash}`}
@@ -223,14 +223,12 @@ function CheckoutCompleted({
             view transaction
           </Link>
         )}
-        {!isFarcaster && (
           <Link
             href="/"
             className="bg-[#2c5282] text-white px-6 py-2 rounded-lg hover:bg-[#1a365d] transition-colors cursor-pointer"
           >
             return to store
           </Link>
-        )}
       </div>
     </div>
   );
