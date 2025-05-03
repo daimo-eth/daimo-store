@@ -27,7 +27,7 @@ export const storeItems: StoreItem[] = [
     color: Color.LightGreen,
     title: "Light Green Cap",
     subtitle: "Real World Ethereum",
-    priceUSD: 35 * mult,
+    priceUSD: 3500 * mult,
     heroImage: {
       src: "/light-green-cap.png",
       alt: "Light Green Real World Ethereum Cap",
@@ -46,7 +46,7 @@ export const storeItems: StoreItem[] = [
     color: Color.Forest,
     title: "Forest Cap",
     subtitle: "Daimo OG",
-    priceUSD: 40 * mult,
+    priceUSD: 30 * mult,
     heroImage: {
       src: "/forest-green-cap.webp",
       alt: "Forest Daimo Cap",
