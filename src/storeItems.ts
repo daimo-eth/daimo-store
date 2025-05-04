@@ -27,7 +27,7 @@ export const storeItems: StoreItem[] = [
     color: Color.LightGreen,
     title: "Light Green Cap",
     subtitle: "Real World Ethereum",
-    priceUSD: 3500 * mult,
+    priceUSD: 30 * mult,
     heroImage: {
       src: "/light-green-cap.png",
       alt: "Light Green Real World Ethereum Cap",
