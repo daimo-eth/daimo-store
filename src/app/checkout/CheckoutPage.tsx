@@ -81,13 +81,13 @@ export default function CheckoutPage({ order }: { order: Order }) {
             {isFarcaster ? (
               <>
                 <h1 className="text-3xl font-serif text-[#2c5282] mb-4">
-                  {username ? `Hey @${username}! ` : ''}Get Your Daimo Cap at Farcon!
+                  {username ? `Hey @${username}! ` : ''}Get Your Daimo Cap!
                 </h1>
                 <p className="text-lg text-[#2d3748] mb-2">
                   Be part of history with a limited edition Real World Ethereum cap
                 </p>
                 <p className="text-md text-[#2d3748] italic">
-                  Pick up your cap in person at Farcon from <button onClick={() => sdk.actions.openUrl("https://warpcast.com/gianluk.eth")} className="text-blue-500 hover:underline">@gianluk.eth</button> or <button onClick={() => sdk.actions.openUrl("https://warpcast.com/dcposch.eth")} className="text-blue-500 hover:underline">@dcposch.eth</button>
+                  We&apos;ll deliver your cap to the address you provide after payment.
                 </p>
               </>
             ) : (
@@ -126,7 +126,7 @@ export default function CheckoutPage({ order }: { order: Order }) {
                       </p>
                     )}
                     <p className="text-[#2c5282]">
-                      {isFarcaster ? "Pickup at Farcon" : "Shipping Included"}
+                      {isFarcaster ? "Shipping Included" : "Shipping Included"}
                     </p>
                   </div>
                   <div className="flex-shrink-0 w-full sm:w-auto text-center sm:text-right sm:mt-0 pt-2 sm:pt-0">
@@ -198,15 +198,15 @@ function CheckoutCompleted({
         </div>
       </div>
       <h2 className="text-2xl font-serif text-[#2c5282] mb-4">
-        {isFarcaster ? `See you at Farcon${username ? `, @${username}` : ''} 🎉` : "Done"}
+        {isFarcaster ? `Thanks for your order${username ? `, @${username}` : ''}! 🎉` : "Done"}
       </h2>
       {isFarcaster ? (
         <>
           <p className="text-[#2d3748] mb-2">
-            Your limited edition Daimo cap is reserved!
+            Your limited edition Daimo cap will be delivered to you!
           </p>
           <p className="text-[#2d3748] mb-6">
-            Find <button onClick={() => sdk.actions.openUrl("https://warpcast.com/gianluk.eth")} className="text-blue-500 hover:underline">@gianluk.eth</button> or <button onClick={() => sdk.actions.openUrl("https://warpcast.com/dcposch.eth")} className="text-blue-500 hover:underline">@dcposch.eth</button> at Farcon to pick up your cap
+            We&apos;ll ship your cap to the address you provided after payment.
           </p>
         </>
       ) : (

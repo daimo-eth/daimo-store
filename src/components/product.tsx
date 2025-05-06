@@ -53,6 +53,8 @@ const modelImages = {
   },
 } as const;
 
+const soldOutColors = [Color.Cream, Color.LightGreen];
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -172,29 +174,37 @@ export default function Product() {
                     onChange={handleItemChange}
                     className="flex items-center gap-x-4"
                   >
-                    {storeItems.map((item) => (
-                      <div key={item.id} className="flex flex-col items-center">
-                        <Radio
-                          value={item}
-                          aria-label={item.color}
-                          className={classNames(
-                            itemColorIcon[item.color].selectedClass,
-                            "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-hidden data-checked:ring-2 data-focus:data-checked:ring-3 data-focus:data-checked:ring-offset-1"
-                          )}
-                        >
-                          <span
-                            aria-hidden="true"
+                    {storeItems.map((item) => {
+                      const isSoldOut = soldOutColors.includes(item.color);
+                      return (
+                        <div key={item.id} className="flex flex-col items-center">
+                          <Radio
+                            value={item}
+                            aria-label={item.color}
+                            disabled={isSoldOut}
                             className={classNames(
-                              itemColorIcon[item.color].class,
-                              "size-8 rounded-full border border-stone-300"
+                              itemColorIcon[item.color].selectedClass,
+                              isSoldOut ? 'opacity-50 cursor-not-allowed' : '',
+                              "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-hidden data-checked:ring-2 data-focus:data-checked:ring-3 data-focus:data-checked:ring-offset-1"
                             )}
-                          />
-                        </Radio>
-                        <span className="mt-2 text-xs text-stone-600">
-                          {item.color}
-                        </span>
-                      </div>
-                    ))}
+                          >
+                            <span
+                              aria-hidden="true"
+                              className={classNames(
+                                itemColorIcon[item.color].class,
+                                "size-8 rounded-full border border-stone-300"
+                              )}
+                            />
+                          </Radio>
+                          <span className="mt-2 text-xs text-stone-600">
+                            {item.color}
+                            {isSoldOut && (
+                              <span className="ml-1 text-red-500 font-semibold">(Sold Out)</span>
+                            )}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </RadioGroup>
                 </fieldset>
               </div>

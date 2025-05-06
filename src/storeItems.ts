@@ -1,6 +1,6 @@
 import { Color, StoreItem } from "./types";
 
-const mult = process.env.NODE_ENV === "production" ? 0.1 : 0.01;
+const mult = process.env.NODE_ENV === "production" ? 1 : 0.01;
 
 export const storeItems: StoreItem[] = [
   {
