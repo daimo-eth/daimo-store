@@ -90,7 +90,7 @@ export function CheckoutForm({
       toChain={destCoin.chainId}
       toToken={getAddress(destCoin.token)}
       toUnits={totalUSD.toFixed(2)}
-      paymentOptions={undefined}
+      paymentOptions={["CashApp","Coinbase","ExternalChains","MercadoPago","Revolut","Solana","Venmo","Wise"]}
       toAddress={destAddr}
       onPaymentCompleted={onPaymentCompleted}
       metadata={metadata}
